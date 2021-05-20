@@ -12,7 +12,7 @@ from tqdm import tqdm
 stock=Stock("2330")
 time.sleep(2); # 延遲兩秒 
 
-stock.fetch(2010, 4) 
+stock.fetch_from(2020, 5)
 
 
 date=stock.date #日期
@@ -76,7 +76,7 @@ cur.execute('CREATE TABLE test( 標籤 INTEGER,日期 INTEGER,盤中最低價 IN
 
 for i in tqdm(range(day_number)) :
     cur.execute("INSERT INTO test VALUES ({},{},{},{},{},{},{},{},{})".format(i+1,day_list[i],low_price_list[i],high_price_list[i],close_price_list[i]\
-,open_price[i],capacity[i],turnover[i],change_list[i],transaction_list[i]))
+,open_price[i],capacity[i],turnover[i],transaction_list[i] ,change_list[i]))
           
 
 # Save (commit) the changes
@@ -91,72 +91,3 @@ con.close()
 
 print("done")
         
-''' 
-dict = {"日期": date, 
-        "收盤價": close_price ,
-        "開盤價":open_price ,
-        "盤中最高價":high_price,
-        "盤中最低價":low_price,
-        "總成總成交股數 ":capacity,
-        "總成交金額":turnover, 
-        "漲跌價差":change, 
-        "成交筆數": transaction, 
-        }
-''' 
-
-
-''' 
-
-df = pd.DataFrame(dict)
-
-
-df.index=[i+1 for i in range(len(stock.date))]
-
-## df.columns=["日期","收盤價","開盤價","盤中最高價","盤中最低價","總成總成交股數","總成交金額","漲跌價差","成交筆數"]
-df.style.set_properties(**{'text-align': 'right'})
-
-
-print("=============================")
-print("ID:",end="")
-print(stock.sid )
-print("=============================")
-
-
-for i in range(len(stock.date)):
-        print(df[i:i+1])
-
-print("=============================")
-
-''' 
-
-
-''' 
-import sqlite3
-con = sqlite3.connect('MyTest.db')
-
-# 會自己幫我建立 .db檔案 
-
-cur = con.cursor()
-# Create tabl
-
-
-cur.execute('CREATE TABLE stocktest(date INTEGER, capacity INTEGER, turnover INTEGER, open REAL, high REAL, low REAL, close REAL, change REAL, transactions INTEGER)')
-
-
-# Insert a row of data
-
-cur.execute("INSERT INTO stocks VALUES ('2006-01-05','BUY','RHAT',100,35.14)")
-
-
-# Save (commit) the changes
-con.commit()
-
-# We can also close the connection if we are done with it.
-# Just be sure any changes have been committed or they will be lost.
-con.close()
-
-
-
-print("done")
-
-''' 
