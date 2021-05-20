@@ -36,14 +36,26 @@ for i in tqdm(range(day_number)):
     day_list[i]=int(tem)
 
 
-close_price_list=[] 
+#把各個資料建立list 
+high_price_list=[]
 low_price_list=[]
+close_price_list=[] 
+open_price_list=[]
+capacity_list=[] 
+turnover_list=[]
+change_list=[]
+transaction_list=[]
 
 
-close_price_list=close_price
+# 把各個資料存入list 
+high_price_list=high_price
 low_price_list=low_price
-
-
+close_price_list=close_price
+open_price_list=open_price
+capacity_list=capacity
+turnover_list=turnover
+change_list=change
+transaction_list=transaction
 
 
 print(close_price_list[1])
@@ -57,13 +69,15 @@ cur = con.cursor()
 # Create tabl
 
 
-cur.execute('CREATE TABLE test(date INTEGER,low_price INTEGER, capacity INTEGER)')
+cur.execute('CREATE TABLE test( 標籤 INTEGER,日期 INTEGER,盤中最低價 INTEGER, 盤中最高價 INTEGER,收盤價 INTEGER,開盤價 INTEGER \
+         總成總成交股數 INTEGER,總成交金額 INTEGER,漲跌價差 INTEGER, 成交筆數 INTEGER)')
 
 # Insert a row of data
 
 for i in tqdm(range(day_number)) :
-
-    cur.execute("INSERT INTO test VALUES ({},{},{})".format(day_list[i],low_price_list[i],close_price_list[i]))
+    cur.execute("INSERT INTO test VALUES ({},{},{},{},{},{},{},{},{})".format(i+1,day_list[i],low_price_list[i],high_price_list[i],close_price_list[i]\
+,open_price[i],capacity[i],turnover[i],change_list[i],transaction_list[i]))
+          
 
 # Save (commit) the changes
 con.commit()

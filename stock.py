@@ -4,6 +4,8 @@ from datetime import datetime
 import twstock
 import sqlite3
 
+import time 
+
 conn=sqlite3.connect('StockTest01.db')
 c=conn.cursor()
 
